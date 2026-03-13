@@ -1,0 +1,27 @@
+<script>
+async function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async function(position){
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+
+            let response = await fetch("/check", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ lat, lng })
+            });
+
+            let data = await response.json();
+
+            document.getElementById("result").innerHTML = `
+                <p>IP: ${data.ip}</p>
+                <p>Country: ${data.country}</p>
+                <p>Distance: ${data.distance}</p>
+                <h2>${data.verdict}</h2>
+            `;
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+</script>

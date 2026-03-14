@@ -21,7 +21,7 @@ with st.form("login_form"):
     if submitted:
         try:
             res = requests.post(
-                "http://127.0.0.1:8000/login",
+                "https://geo-spoofing.onrender.com/login",
                 json={"username": username, "password": password},
                 timeout=5
             )
@@ -69,7 +69,7 @@ if st.session_state.get("logged_in"):
         try:
             # إرسال البيانات للـ API لتحليل Spoofing
             analyze_res = requests.post(
-                "http://127.0.0.1:8000/analyze",
+                "https://geo-spoofing.onrender.com/analyze",
                 json=collected_data,
                 timeout=5
             ).json()
